@@ -13,21 +13,36 @@ class ItemDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(item.name),
-        backgroundColor: Theme.of(context).canvasColor,
         elevation: 0,
         brightness: Brightness.light,
         textTheme: TextTheme(
           headline6: Theme.of(context)
               .textTheme
               .headline6
-              .apply(color: theme.primaryColor),
+              .apply(color: theme.primaryColor, fontWeightDelta: 5),
         ),
         iconTheme: IconThemeData(color: theme.primaryColor),
         actions: [
-          IconButton(
-            icon: Icon(Icons.bookmark_border),
-            onPressed: () {},
-            color: theme.accentColor,
+          Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(Icons.bookmark_border),
+                onPressed: () {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Absolutely nothing happened.',
+                        style: theme.textTheme.subtitle1,
+                      ),
+                      backgroundColor: theme.appBarTheme.backgroundColor,
+                      padding: EdgeInsets.fromLTRB(24, 6, 24, 12),
+                    ),
+                  );
+                },
+                color: theme.accentColor,
+                tooltip: 'Do nothing',
+              );
+            },
           ),
         ],
       ),
@@ -57,7 +72,10 @@ class _Paragraph extends StatelessWidget {
     if (text.startsWith('# ')) {
       child = Padding(
         padding: const EdgeInsets.only(top: 10),
-        child: Text(text.substring(2), style: theme.textTheme.headline6),
+        child: Text(
+          text.substring(2),
+          style: theme.textTheme.headline6,
+        ),
       );
     } else {
       child = SelectableText(text);

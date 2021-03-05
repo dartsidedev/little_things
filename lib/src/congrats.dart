@@ -7,6 +7,7 @@ class CongratsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final allDone =
         context.select<DoneNotifier, bool>((value) => value.isAllDone);
+    final theme = Theme.of(context);
 
     return AnimatedPositioned(
       left: 40,
@@ -16,11 +17,16 @@ class CongratsCard extends StatelessWidget {
       curve: Curves.easeOutCubic,
       child: RepaintBoundary(
         child: Card(
+          color: theme.scaffoldBackgroundColor,
           shape: CircleBorder(),
           elevation: 12,
           child: Padding(
-            padding:
-                EdgeInsets.only(top: 130, left: 50, right: 50, bottom: 110),
+            padding: EdgeInsets.only(
+              top: 130,
+              left: 50,
+              right: 50,
+              bottom: 110,
+            ),
             child: _CardContents(allDone),
           ),
         ),
@@ -46,7 +52,9 @@ class _CardContentsState extends State<_CardContents>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 3000), vsync: this);
+      duration: const Duration(milliseconds: 3000),
+      vsync: this,
+    );
   }
 
   @override
@@ -81,28 +89,29 @@ class _CardContentsState extends State<_CardContents>
             parent: _controller,
           ),
           child: SizedBox(
-            height: 70,
-            child: Image.asset('assets/party-popper_1f389.png'),
+            height: 80,
+            child: Text(
+              '🚀',
+              style: TextStyle(fontSize: 45),
+            ),
           ),
         ),
         SizedBox(height: 20),
         Text(
-          'Congratulations!',
-          style: theme.textTheme.headline4.copyWith(fontSize: 30),
+          'Congrats!',
+          style: theme.textTheme.headline5,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 30),
           child: TrackedOutText(
-            'You have successfully completed watching this talk. '
+            'You have successfully completed watching this talk.\n'
             'You get 50 completely meaningless virtual points!',
             CurvedAnimation(
               curve: Interval(0.45, 0.7),
               parent: _controller,
             ),
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText2.copyWith(
-              fontSize: 14,
-            ),
+            style: theme.textTheme.caption,
           ),
         ),
       ],

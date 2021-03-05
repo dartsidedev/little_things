@@ -27,11 +27,16 @@ class AgendaListItem extends StatelessWidget {
           child: InkWell(
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => ItemDetail(item)));
+                context,
+                MaterialPageRoute(builder: (_) => ItemDetail(item)),
+              );
             },
             child: AnimatedPadding(
-              padding:
-                  EdgeInsets.only(left: left, top: vertical, bottom: vertical),
+              padding: EdgeInsets.only(
+                left: left,
+                top: vertical,
+                bottom: vertical,
+              ),
               duration: paddingDuration,
               child: Text(item.name, style: theme.textTheme.headline6),
             ),
@@ -43,10 +48,17 @@ class AgendaListItem extends StatelessWidget {
           },
           child: AnimatedPadding(
             padding: const EdgeInsets.only(
-                left: 20, right: right, top: vertical, bottom: vertical),
+              left: 20,
+              right: right,
+              top: vertical,
+              bottom: vertical,
+            ),
             duration: paddingDuration,
-            child: Icon(Icons.check, size: 28,
-                color: isDone ? theme.primaryColor : theme.primaryColorLight),
+            child: Icon(
+              Icons.check,
+              size: 28,
+              color: isDone ? theme.primaryColor : theme.primaryColorLight,
+            ),
           ),
         ),
       ],
